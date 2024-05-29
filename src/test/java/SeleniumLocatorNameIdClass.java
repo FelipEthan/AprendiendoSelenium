@@ -27,46 +27,37 @@ public class SeleniumLocatorNameIdClass {
 
     @BeforeEach
     public void chromeDriver(){
-        // Inicializa una nueva instancia de ChromeDriver
-        driver = new ChromeDriver();
-        // Maximiza la ventana del navegador
-        driver.manage().window().maximize();
-    }
+        driver = new ChromeDriver(); // Inicializa una nueva instancia de ChromeDriver
+        driver.manage().window().maximize();// Maximiza la ventana del navegador
 
+    }
     @Test
     public void testLocator(){
-        // Navega a la URL especificada
-        driver.get(url);
 
-        // Localiza un elemento por su atributo 'name' y verifica que está habilitado
-        WebElement element = driver.findElement(By.name("my-text"));
+        driver.get(url);// Navega a la URL especificada
+        WebElement element = driver.findElement(By.name("my-text")); // Localiza un elemento por su atributo 'name' y verifica que está habilitado
         assertThat(element.isEnabled()).isTrue();
-
-        // Localiza un elemento por su atributo 'id' y realiza varias comprobaciones
-        WebElement element1 = driver.findElement(By.id("my-text-id"));
-        // Verifica que el atributo 'type' es igual a "text"
-        assertThat(element1.getAttribute("type")).isEqualTo("text");
+        WebElement element1 = driver.findElement(By.id("my-text-id")); // Localiza un elemento por su atributo 'id' y realiza varias comprobaciones
+        assertThat(element1.getAttribute("type")).isEqualTo("text");// Verifica que el atributo 'type' es igual a "text"
         assertThat(element1.getDomAttribute("type")).isEqualTo("text");
         assertThat(element1.getDomProperty("type")).isEqualTo("text");
-
-        // Verifica que el atributo 'myprop' es igual a "myvalue"
-        assertThat(element1.getAttribute("myprop")).isEqualTo("myvalue");
+        assertThat(element1.getAttribute("myprop")).isEqualTo("myvalue"); // Verifica que el atributo 'myprop' es igual a "myvalue"
         assertThat(element1.getDomAttribute("myprop")).isEqualTo("myvalue");
-        // Verifica que la propiedad 'myprop' es nula
-        assertThat(element1.getDomProperty("myprop")).isNull();
-
-        // Localiza elementos por su nombre de clase y realiza comprobaciones
-        List<WebElement> byClassName = driver.findElements(By.className("form-control"));
-        // Verifica que el tamaño de la lista de elementos es positivo
-        assertThat(byClassName.size()).isPositive();
+        assertThat(element1.getDomProperty("myprop")).isNull();// Verifica que la propiedad 'myprop' es nula
+        List<WebElement> byClassName = driver.findElements(By.className("form-control"));// Localiza elementos por su nombre de clase y realiza comprobaciones
+        assertThat(byClassName.size()).isPositive();// Verifica que el tamaño de la lista de elementos es positivo
         System.out.println(byClassName.size());
-        // Verifica que el atributo 'name' del primer elemento es igual a "my-text"
-        assertThat(byClassName.get(0).getAttribute("name")).isEqualTo("my-text");
+        assertThat(byClassName.get(0).getAttribute("name")).isEqualTo("my-text");// Verifica que el atributo 'name' del primer elemento es igual a "my-text"
+        String atribut = element1.getAttribute("id"); //Obtiene el valor del atributo 'id'
+        System.out.println("El atributo tiene el valor : " + atribut);
+        String atribut1 = element1.getDomAttribute("class"); // Obtiene el valor actual del atributo 'class' en el DOM
+        System.out.println("El atributo DOM tiene el valor: " + atribut1);
+        String atribt2 = element1.getDomProperty("name"); // Obtiene el valor de la propiedad 'value'
+        System.out.println("La propiedad tiene valor: " + atribt2);
     }
 
     @AfterEach
     public void closeBrowser(){
-        // Cierra el navegador
-        driver.quit();
+        driver.quit();// Cierra el navegador
     }
 }
