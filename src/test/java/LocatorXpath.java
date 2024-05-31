@@ -18,6 +18,7 @@ public class LocatorXpath {
     String elemento = "//input[@name='my-hidden']";
     String elemento1 = "//input[@id='my-radio-1']";
     String elemento2 = "//input[@id='my-radio-2']";
+    String elemento3 = "//input[@name='my-date']";
     @BeforeAll
     public static void setUp(){
         WebDriverManager.chromedriver().setup();
@@ -43,9 +44,14 @@ public class LocatorXpath {
         WebElement element2 = driver.findElement(By.xpath(elemento2));
         assertThat(element2.getAttribute("id")).isEqualTo("my-radio-2");
         assertThat(element2.isSelected()).isFalse();
+
+        WebElement element3 = driver.findElement(By.xpath(elemento3));
+        assertThat(element3.isEnabled()).isTrue();
+        element3.sendKeys("01/03/1999");
+        assertThat(element3.getAttribute("class")).isEqualTo("form-control");
     }
     @AfterAll
     public static void closeBrowser(){
-        driver.quit();
+       // driver.quit();
     }
 }
