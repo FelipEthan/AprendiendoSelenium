@@ -17,8 +17,6 @@ public class Droppable {
     static Actions actions;
     static WebDriverWait wait;
     String texto = "Es posible que el navegador o la aplicación no sean seguros. Más información";
-
-
     @BeforeAll
     public static void ajusteDriver() {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\andre\\Documentos\\Selenium\\software\\chromedriver.exe");
@@ -27,9 +25,7 @@ public class Droppable {
         Duration tiempo = Duration.ofSeconds(20);
         wait = new WebDriverWait(driver, tiempo);
         driver.manage().window().maximize();
-
     }
-
     @Test
     void testDragAndDrop() {
         driver.get("https://jqueryui.com/droppable/");
@@ -40,12 +36,9 @@ public class Droppable {
         actions.build();
         actions.dragAndDrop(source, target).perform();
     }
-
     @Test
     void testGoogle() {
         driver.get("https://www.google.com/");
-
-
         //CSS class name
         driver.findElement(By.className("gb_Kd")).click();
         //CSS tag name
@@ -53,8 +46,6 @@ public class Droppable {
         //XPath selector
         WebElement boton = driver.findElement(By.xpath("//*[@id=\"identifierNext\"]/div/button/span"));
         boton.click();
-
-
         WebElement text = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("dMNVAe")));
         String textoActual = text.getText();
         System.out.println(textoActual);
@@ -63,11 +54,8 @@ public class Droppable {
             System.out.println("Los textos son iguales ");
         } else {
             System.out.println("Los textos no son iguales ");
-
         }
-
     }
-
     @AfterAll
     static void tearDown() {
         driver.quit();
