@@ -35,8 +35,8 @@ public class TestSelenium {
     }
     @AfterAll
     public static void closeBrowser(){
-       // if (driver != null) {
-         //   driver.quit();
-      //  }
+        if (driver != null) {
+          driver.quit();
+       }
     }
 }
