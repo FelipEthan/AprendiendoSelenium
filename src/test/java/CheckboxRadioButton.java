@@ -12,37 +12,37 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CheckboxRadioButton {
     private static WebDriver driver;
-    private static WebDriverWait wait;
-    String url = "https://bonigarcia.dev/selenium-webdriver-java/web-form.html";
-    String elemento = "my-check-2";
-    String elemento2 = "my-radio-2";
-
-
+    private String url = "https://bonigarcia.dev/selenium-webdriver-java/web-form.html";
+    private  String elemento1 = "#my-check-2";
+    private String elemento2 = "#my-radio-2";
     @BeforeAll
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
-    }
 
+    }
     @BeforeEach
     public void initDriver() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        }
-
-    @Test
-    public void testCheckBoxAndRadioButton() {
-        driver.get(url);
-        WebElement check = driver.findElement(By.id(elemento));
-        check.click();
-        assertThat(check.isSelected()).isTrue();
-        WebElement radio = driver.findElement(By.id(elemento2));
-        assertThat(radio.isDisplayed()).isTrue();
-
     }
-
-
+    @Test
+    public void checkboxRadio(){
+    driver.get(url);
+    WebElement element = driver.findElement(By.cssSelector(elemento1));
+    element.click();
+    assertThat(element.isSelected()).isTrue();
+    WebElement element2 = driver.findElement(By.cssSelector(elemento2));
+    assertThat(element2.isDisplayed()).isTrue();
+    }
+    @AfterAll
+    public static void closeBrowser(){
+        if (driver != null){
+            driver.quit();
+        }
+    }
 }

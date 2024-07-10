@@ -21,7 +21,9 @@ public class Attribute_DomAttribute_DomProperty {
     String atribut1 = "rows"; // Nombre del segundo atributo a verificar
     String atribut2 = "placeholder"; // Nombre del tercer atributo a verificar
     String atribut3 = "value"; // Nombre del cuarto atributo a verificar
-    String atribut5 = "type";// Nombre del quinto atributo a verificar
+    String atribut4 = "type";// Nombre del quinto atributo a verificar
+    String elemento5 = "Boni García"; //Nombre del quinto elemento
+    String atributo5 = "href"; //Nombre del quinto atributo
     @BeforeAll
     public static void setUp() {
         WebDriverManager.chromedriver().setup(); // Configuración del WebDriver para Chrome
@@ -57,9 +59,14 @@ public class Attribute_DomAttribute_DomProperty {
         System.out.println("El campo Readonly, su atributo es: " + atribut3 + " su valor es: " + valor3);
         // Localización y verificación del cuarto elemento
         WebElement element4 = driver.findElement(By.name(elemento4));
-        assertThat(element4.getAttribute(atribut5)).isEqualTo("text");
-        String valor = element4.getAttribute(atribut5);
-        System.out.println("El campo Readonly, su atributo es: " + atribut5 + " su valor es: " + valor);
+        assertThat(element4.getAttribute(atribut4)).isEqualTo("text");
+        String valor = element4.getAttribute(atribut4);
+        System.out.println("El campo Readonly, su atributo es: " + atribut4 + " su valor es: " + valor);
+        // Localización y verificación del quinto elemento
+        WebElement element5 = driver.findElement(By.linkText(elemento5));
+        assertThat(element5.getAttribute(atributo5)).isEqualTo("https://bonigarcia.dev/");
+        String valor5 = element5.getAttribute(atributo5);
+        System.out.println("El atributo " + atributo5 + " contiene el valor " + valor5);
     }
     @AfterAll
     public static void closeBrowser() {

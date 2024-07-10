@@ -24,6 +24,7 @@ class HelloWorldChromeJupiterTest {
         String title = driver.getTitle();
 // Verify
         assertThat(title).isEqualTo("Hands-On Selenium WebDriver with Java");
+        System.out.println(title);
     }
     @AfterEach
     void teardown() {

@@ -33,6 +33,7 @@ public class Droppable {
         driver.switchTo().frame(iframe);
         WebElement source = driver.findElement(By.cssSelector("#draggable"));
         WebElement target = driver.findElement(By.cssSelector("#droppable"));
+
         actions.build();
         actions.dragAndDrop(source, target).perform();
     }

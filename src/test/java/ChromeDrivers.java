@@ -1,28 +1,64 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChromeDrivers {
-    public static void main(String[] args) {
-        String nombreAnimal = "becerro";
-        System.setProperty("webdriver.chromedriver","C:\\Users\\andre\\Documentos\\Selenium\\CursoSeleniumAprendiendo\\software\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://www.google.com");
+    private static WebDriver driver;
+    private String nombreAnimal = "becerro";
+    private String url = "https://www.google.com";
+    private String elemento1 = "gLFyf";
+    private String elemento2 = "lnXdpd";
+    private String elemento3 = "//body/div[1]/div[3]/form[1]/div[1]/div[1]/div[4]/center[1]/input[1]";
+    private String elemento4 = "span[data-dobid='hdw']";
+    private String elemento5 = "//div[contains(text(),'Noticias')]";
+    private String elemento6 = ".n0jPhd.ynAwRc.MBeuO.nDgy9d";
 
-        driver.findElement(By.className("gLFyf")).sendKeys("BECERRO");
-        driver.findElement(By.className("lnXdpd")).click();
-        driver.findElement(By.xpath("//body/div[1]/div[3]/form[1]/div[1]/div[1]/div[4]/center[1]/input[1]")).click();
-        WebElement texto = driver.findElement(By.cssSelector("span[data-dobid='hdw']"));
-        String textoActual = texto.getText();
-        System.out.println("El texto dice: " + textoActual);
-        if (textoActual.equals(nombreAnimal)){
-            System.out.println("Los nombres son iguales caso exitoso");
-        }else {
-            System.out.println("Los nombres no son iguales caso fallido se esperaba " + nombreAnimal + " pero se capturo " + textoActual );
-        }
-        driver.quit();
+    @BeforeAll
+    public static void setUp() {
+        WebDriverManager.chromedriver().setup();
+    }
+
+    @BeforeEach
+    public void initDriver() {
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    public void testGoogle() {
+        driver.get(url);
+        WebElement element1 = driver.findElement(By.className(elemento1));
+        element1.sendKeys("BECERRO");
+        WebElement element2 = driver.findElement(By.className(elemento2));
+        element2.click();
+        WebElement element3 = driver.findElement(By.xpath(elemento3));
+        element3.click();
+        WebElement element4 = driver.findElement(By.cssSelector(elemento4));
+        String texto = element4.getText();
+        System.out.println("El texto dice: " + texto);
+        assertThat(element4.getText()).isEqualTo(nombreAnimal);
+        WebElement element5 = driver.findElement(By.xpath(elemento5));
+        element5.click();
+        List<WebElement> elements = driver.findElements(By.cssSelector(elemento6));
+        System.out.println("La cantidad de paginas es de " + elements.size());
 
     }
+    @AfterAll
+    public static void closeBrowser(){
+        if (driver != null){
+            driver.quit();
+        }
+    }
+
 }

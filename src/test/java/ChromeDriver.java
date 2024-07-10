@@ -14,10 +14,12 @@ public class ChromeDriver {
         driver.findElement(By.name("firstName")).sendKeys("Andres Felipe");
         driver.findElement(By.name("lastName")).sendKeys("Quimbayo Trujillo");
         driver.findElement(By.name("phone")).sendKeys("3102137408");
+        driver.findElement(By.name("postalCode")).sendKeys("894611");
 
         //Ejemplo locator id
         driver.findElement(By.id("userName")).sendKeys("andre@gmail.com");
         driver.findElement(By.id("email")).sendKeys("FELIPE.21");
+
         //Ejemplo locator Linktest
         driver.findElement(By.partialLinkText("Des")).click();
 
