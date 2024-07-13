@@ -1,6 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,11 @@ public class CommandNavigation {
     static WebDriver driver;
 
     @BeforeAll
-    public static void ajustarDriver() {
+    public static void setUp() {
+        WebDriverManager.chromedriver().setup();
+    }
+    @BeforeEach
+    public void initDriver() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
