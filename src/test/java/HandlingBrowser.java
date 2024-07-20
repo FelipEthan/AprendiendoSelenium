@@ -1,44 +1,63 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class HandlingBrowser {
-    public static void main(String[] args) {
-        // Establece la ubicación de ChromeDriver
-        System.setProperty("webdriver.chromedriver","C:\\Users\\andre\\Documentos\\Selenium\\software\\chromedriver.exe");
-        // Crea una instancia de ChromeDriver
-        WebDriver driver = new ChromeDriver();
-        // String de la variable URL
-        String url = "https://www.eurail.com/en";
-        //Lanzar al sitio web
-        driver.get(url);
-        //Maximixa la ventana
+    static WebDriver driver;
+    WebDriverWait wait;
+    String url = "https://www.eurail.com/en";
+    String elemento1 = "//*[@id=\"CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll\"]";
+    String elemento2 = "//*[@id=\"navigation-menu\"]/li[4]/button";
+    String elemento3 = "//*[@id=\"navigation-menu\"]/li[4]/div/div/div[1]/div/a/span";
+    String esperaURL = "https://www.eurail.com/en/help";
+    @BeforeAll
+    public static void setUp() {
+        WebDriverManager.chromedriver().setup();
+    }
+
+    @BeforeEach
+    public void initDriver() {
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().maximize();
-        //Metodo para obtener titulo de la pagina
+    }
+
+    @Test
+    public void testHanlingBrowser() {
+        driver.get(url);
         String actualTitulo = driver.getTitle();
         System.out.println(actualTitulo);
         //Verificar titulo
-        String verifica = "Discover Europe by Train | Best Rail Pass in Europe | Eurail.com®";
-        if (actualTitulo.equals(verifica)){
-            System.out.println("El titulo de la pagina es " + actualTitulo);
-        }else{
-            System.out.println("la verificacón fallo");
-            System.out.println("El titulo actual es " + actualTitulo);
-            System.out.println("El titulo que se esperaba es " + verifica);
-        }
+        assertThat(actualTitulo).isEqualTo("Discover Europe by Train | Best Rail Pass in Europe | Eurail.com®");
         //Navegar a la pantalla de ayuda
-        driver.findElement(By.className("CybotCookiebotDialogBodyButton")).click();
-        driver.findElement(By.xpath("//*[@id=\"container-86723db46b\"]/div/div/div[1]/div/div[3]/div[1]/div/div[3]/div/a/span")).click();
-        String actualURL = driver.getCurrentUrl();//Recupera la URL de la página web actual que está cargada en el navegador
-        String esperaURL = "https://www.eurail.com/en/eurail-passes";
-        if (actualURL.equals(esperaURL)){
-            System.out.println("El titulo de la pagina es " + actualURL);
-        }else {
-            System.out.println("la verificacón fallo");
-            System.out.println("El titulo actual es " + actualURL);
-            System.out.println("El titulo que se esperaba es " + esperaURL);
+        String tituloinicial = driver.getCurrentUrl();
+        System.out.println("El titulo inicial es " + tituloinicial);
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elemento1)));
+        element.click();
+        WebElement element1 = driver.findElement(By.xpath(elemento2));
+        element1.click();
+        WebElement element2 = driver.findElement(By.xpath(elemento3));
+        element2.click();
+        String titulofinal = driver.getCurrentUrl();
+        System.out.println("El titulo final es " + titulofinal);//Recupera la URL de la página web actual que está cargada en el navegador
+        assertThat(titulofinal).isEqualTo(esperaURL);
+    }
+    @AfterAll
+    public static void closeBrowser(){
+        if (driver != null){
+            driver.quit();
         }
-        driver.quit();
-
     }
 }

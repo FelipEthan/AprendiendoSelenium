@@ -1,4 +1,5 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,6 +68,14 @@ public class DatePickerTest {
         String oneYearBack = datePicker.getAttribute("value");
         System.out.println("La fecha escogida es: " + oneYearBack);
 
+    }
+    @AfterAll
+    public static void closeBrowser(){
+        if (driver != null){
+            driver.quit();
+        }
+    }
+}
 
         /* Ejercicio para seleccionar la fecha actual
             @Test
@@ -115,5 +124,4 @@ public class DatePickerTest {
         // (aquí faltaría una aserción para comparar `oneYearBack` con `expectedDate`)
     }
          */
-    }
-}
+

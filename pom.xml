@@ -33,11 +33,11 @@
             <version>3.25.3</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.8.0</version>
-            <scope>test</scope>
+            <version>5.9.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
