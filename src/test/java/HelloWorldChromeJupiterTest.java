@@ -1,33 +1,36 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import static org.assertj.core.api.Assertions.assertThat; // Importar métodos de AssertJ para aserciones
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.junit.jupiter.api.AfterEach; // Importar anotación para métodos que se ejecutan después de cada prueba
-class HelloWorldChromeJupiterTest {
-    private WebDriver driver;
-    @BeforeAll
-    static void setupClass() {
-        WebDriverManager.chromedriver().setup();
-    }
-    @BeforeEach
-    void setup() {
-        driver = new ChromeDriver();
-    }
-    @Test
-    void test() {
-// Exercise
-        String sutUrl = "https://bonigarcia.dev/selenium-webdriver-java/";
-        driver.get(sutUrl);
-        String title = driver.getTitle();
-// Verify
-        assertThat(title).isEqualTo("Hands-On Selenium WebDriver with Java");
-        System.out.println(title);
-    }
-    @AfterEach
-    void teardown() {
-        driver.quit();
+import static org.assertj.core.api.Assertions.assertThat;
+public class HelloWorldChromeJupiterTest {
+static WebDriver driver;;
+String url = "https://bonigarcia.dev/selenium-webdriver-java/";
+String title = "Hands-On Selenium WebDriver with Java";
+@BeforeAll
+    public static void setUp(){
+    WebDriverManager.chromedriver().setup();
+}
+@BeforeEach
+    public void initDriver(){
+    driver = new ChromeDriver();
+    driver.manage().window().maximize();
+}
+@Test
+    public void testHelloWord(){
+    driver.get(url);
+    String titulo = driver.getTitle();
+    assertThat(titulo).isEqualTo(title);
+    System.out.println("Hello word " +  titulo);
+
+}
+@AfterAll
+    public static void closeBrowser(){
+        if (driver != null){
+            driver.quit();
+        }
     }
 }
