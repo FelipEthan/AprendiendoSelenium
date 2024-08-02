@@ -18,6 +18,7 @@ public class MouseClicActions {
     String elemento2 = "context-menu-2";
     String elemento3 = "my-dropdown-3";
     String elemento4 = "context-menu-3";
+    String elemento5 = "my-dropdown-1";
     @BeforeAll
     public static void setUp(){
         WebDriverManager.chromedriver().setup();
@@ -31,6 +32,9 @@ public class MouseClicActions {
     @Test
     public void testContextAndDoubleClick() {
         driver.get(url);
+        WebElement element0 = driver.findElement(By.id(elemento5));
+        actions.click(element0).build().perform();
+        assertThat(element0.isDisplayed()).isTrue();
         WebElement element = driver.findElement(By.id(elemento));
         actions.contextClick(element).build().perform();
         WebElement element1 = driver.findElement(By.id(elemento2));
