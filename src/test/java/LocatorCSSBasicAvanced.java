@@ -11,9 +11,8 @@ import org.opentest4j.AssertionFailedError;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
 
-//Estudiar
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LocatorCSSBasicAvanced {
     private static WebDriver driver;
@@ -23,7 +22,7 @@ public class LocatorCSSBasicAvanced {
     String elemento2 = "[type=checkbox]:not(:checked)";
     String elemento3 = "[type=radio]:checked";
     String elemento5 = "Signup";
-    String elemento6= "[name='name']";
+    String elemento6 = "[name='name']";
     String elemento7 = "[data-qa='signup-email']";
     String elemento8 = "[data-qa='signup-button']";
     String elemento9 = "[for='id_gender1']";
@@ -85,8 +84,9 @@ public class LocatorCSSBasicAvanced {
             closeBrowser();
         }
     }
+
     @Test
-    public void testLocatorCSS2(){
+    public void testLocatorCSS2() {
         driver.get("https://www.automationexercise.com/");
         WebElement element = driver.findElement(By.partialLinkText(elemento5));
         element.click();
@@ -107,7 +107,7 @@ public class LocatorCSSBasicAvanced {
         WebElement dias = driver.findElement(By.cssSelector(elemento11));
         Select select = new Select(dias);
         List<WebElement> options = select.getOptions();
-        for (WebElement option : options){
+        for (WebElement option : options) {
             System.out.println(option.getText());
         }
         WebElement meses = driver.findElement(By.cssSelector(elemento12));
@@ -116,22 +116,23 @@ public class LocatorCSSBasicAvanced {
         System.out.println("El mes seleccionado es " + actualMonth);
         Select select1 = new Select(meses);
         List<WebElement> options1 = select1.getOptions();
-        for (WebElement option2 : options1){
+        for (WebElement option2 : options1) {
             System.out.println(option2.getText());
         }
         WebElement year = driver.findElement(By.cssSelector(elemento13));
         year.sendKeys("1999");
         String actualyear = year.getAttribute("value");
         System.out.println("Año seleccionada: " + actualyear);
-        System.out.println("La fecha seleccionada es: " + actualdays + "/" + actualMonth + "/"+ actualyear );
-
+        System.out.println("La fecha seleccionada es: " + actualdays + "/" + actualMonth + "/" + actualyear);
 
 
     }
 
     @AfterEach
     public void closeBrowser() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
 

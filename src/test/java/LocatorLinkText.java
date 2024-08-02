@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LocatorLinkText {
@@ -12,19 +13,28 @@ public class LocatorLinkText {
     String elemento = "Return to index";
     String elemento1 = "index";
     String elemento2 = "Boni García";
-    String elemento3 = "Boni";
+    String elemento3 = "Aspirantes";
+    String elemento4 = "INICIO";
+    String elemento5 = "Funcionarios";
+    String elemento6 = "Bienestar";
+    String elemento7 = "Salud";
+    String elemento8 = "Contactos";
+    String elemento9 = "//div[contains(text(),'Kelly Fernanda Aguilar Otalora')]";
+
     @BeforeAll
-    public static void setUp(){
+    public static void setUp() {
         WebDriverManager.chromedriver().setup();
     }
+
     @BeforeEach
-    public void chromeDriver(){
+    public void chromeDriver() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         System.out.println("Automatizando con Selenium - Locator linktext");
     }
+
     @Test
-    public void testLocatorLinkTest(){
+    public void testLocatorLinkTest() {
         driver.get(url);
         WebElement element = driver.findElement(By.linkText(elemento));
         assertThat(element.getTagName()).isEqualTo("a");
@@ -34,16 +44,43 @@ public class LocatorLinkText {
         assertThat(element1.getLocation()).isEqualTo(element.getLocation());
         assertThat(element1.getRect()).isEqualTo(element.getRect());
     }
+
     @Test
-    public void testLocatorPartialLinktest(){
+    public void testLocatorPartialLinktest() {
         driver.get(url);
         WebElement element = driver.findElement(By.linkText(elemento2));
         assertThat(element.getTagName()).isEqualTo("a");
         assertThat(element.getCssValue("cursor")).isEqualTo("pointer");
 
     }
+
+    @Test
+    public void testLocatorLinkText() {
+        driver.get("http://www.ut.edu.co/");
+        WebElement element = driver.findElement(By.linkText(elemento3));
+        element.click();
+        WebElement element1 = driver.findElement(By.linkText(elemento4));
+        element1.click();
+        WebElement element2 = driver.findElement(By.linkText(elemento5));
+        element2.click();
+        WebElement element3 = driver.findElement(By.linkText(elemento6));
+        element3.click();
+        WebElement element4 = driver.findElement(By.linkText(elemento7));
+        element4.click();
+        WebElement element5 = driver.findElement(By.linkText(elemento8));
+        element5.click();
+        WebElement element6 = driver.findElement(By.xpath(elemento9));
+        String texto = element6.getText();
+        System.out.println(texto);
+        assertThat(element6.getText()).isEqualTo(texto);
+
+
+    }
+
     @AfterEach
-    public void closeBrowser(){
-        driver.quit();
+    public void closeBrowser() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
