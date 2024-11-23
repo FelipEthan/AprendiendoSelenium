@@ -30,7 +30,7 @@ public class UploadFile {
         Path tempFile = Files.createTempFile("Selenium",".pdf");
         String filename = tempFile.toAbsolutePath().toString();
         archivo.sendKeys(filename);
-        driver.findElement(By.tagName("form")).submit();
+
     }
 
 }
